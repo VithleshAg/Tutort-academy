@@ -1,3 +1,5 @@
+//3 June 2023
+
 // print below pattern
 
 // *****

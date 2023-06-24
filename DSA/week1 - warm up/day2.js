@@ -1,3 +1,5 @@
+//4 June 2023
+
 //Q1 Find max and min element in an array 
 // constraint is given like from -10000 to 10000
 
