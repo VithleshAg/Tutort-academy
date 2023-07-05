@@ -1,20 +1,20 @@
 //Q1 https://leetcode.com/problems/happy-number/
-var isHappy = function (num) {
+var isHappy = function (n) {
+    let set = new Set()
+    
+    while(n!==1){
+        set.add(n);
 
-    // getting issue as 1 is converting to 2
-    let k = 0;
-    let n = num;
-    console.log("1st: ",{num, n, k})
-    if(n==0) return false;
-    else if(n==1) return true;
-
-    while (n > 0) {
-        console.log("2nd: ",{num, n, k})
-            k += (n % 10)**2;
-            n = Math.floor(n/10);
+        let k = 0;
+        while (n > 0) {
+                k += (n % 10)**2;
+                n = Math.floor(n/10);
+        }
+        n = k;
+        if(set.has(n)) return false
     }
-    console.log("3rd: ",{num, n, k})
-    return isHappy(k);
+
+    return true;
 };
 
 
