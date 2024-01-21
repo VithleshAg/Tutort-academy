@@ -100,31 +100,18 @@ var isUgly = function(n) {
 //Q5 https://leetcode.com/problems/move-zeroes/
 
 var moveZeroes = function(nums) {
-    //Approach1
+    let j=0, n=nums.length;
+    while(nums[j]!==0 && j<n) j++;
 
-    for(let i=1, j=0; i<nums.length; i++){
-        if(nums[j]===0 && nums[i]!==0){
+    for(let i=j+1; i<n; i++){
+        if(nums[i]!==0){
             nums[j] = nums[i];
             nums[i] = 0;
             j++
-        } else if(nums[j]!==0) j++
+        }
     }
+
     return nums;
-
-    //Approach2
-
-    // let j=0;
-
-    //     for(let i=0; i<nums.length;i++){
-    //         if(nums[i]!==0 && i===j) j++;
-    //         else if(nums[i]!==0){
-    //             nums[j] = nums[i];
-    //             nums[i] = 0;
-    //             j++;
-    //         }
-    //     }
-
-    //     return nums;
 };
 
 //Q6
@@ -227,67 +214,25 @@ var thirdMax = function (nums) {
 //Q8
 
 var findTheDifference = function (s, t) {
-    //Approach 1
     const sObj = {};
-    const tObj = {};
 
-
-    for (let c of s) {
-        sObj[c] = sObj[c] ? sObj[c] + 1 : 1;
-    }
-
+    for (let c of s) sObj[c] ? sObj[c] += 1 : sObj[c] = 1;
     for (let c of t) {
-        tObj[c] = tObj[c] ? tObj[c] + 1 : 1;
+        if(sObj[c]) sObj[c] -= 1;
+        else return c;
     }
-
-    let char = null;
-
-    for(let c in tObj){
-        if(sObj[c] !== tObj[c]) char = c;
-    }
-
-    return char;
-
-    //Approach 2
-    // const sObj = new Map([]);
-    // const tObj = new Map([]);
-
-
-    // for (let c of s) {
-    //     sObj.set(c, sObj.has(c) ? sObj.get(c) + 1 : 1);
-    // }
-
-    // for (let c of t) {
-    //     tObj.set(c, tObj.has(c) ? tObj.get(c) + 1 : 1);
-    // }
-
-    // let char = null;
-
-    // for(let c of tObj.keys()){
-    //     if(sObj.get(c) !== tObj.get(c)){
-    //         char = c;
-    //         break;
-    //     }
-    // }
-
-    // return char
+    
 };
 
 //Q9 https://leetcode.com/problems/add-digits/
 var addDigits = function(n) {
-    let res = n;
-    if(n>=10){
-        n = String(n);
-        while(n.length > 1){
-            let sqNo = 0;
-            for(let val of n){
-                sqNo += Number(val);
-            }
-            n = String(sqNo);
-        }
-        res = n;
-    }
-    return res;
+    if(n<10) return n;
+    
+    let temp = 0;
+    n+="";
+    for(let val of n) temp += Number(val);
+
+    return addDigits(temp);
 };
 
 //Q10 https://leetcode.com/problems/sum-of-digits-of-string-after-convert/

@@ -155,28 +155,19 @@ sumOfNSeries(5)
 //Q10
 
 const isFascinating = (n) => {
-    n = (n + "" + 2*n + "" + 3*n);
-    if(n.length!==9) console.log("not fascinating");
-    else {
-        n = n.split("");
-        let isFasc = true;
+    let arr = (n + "" + 2*n + "" + 3*n).split("");
+    let isFasc = true;
 
-        for(let i=1; i<n.length; i++){
-            if(isFasc){
-                for(let j=0; j<i; j++){
-                    if(n[i]===n[j]) {
-                        isFasc = false;
-                        break;
-                    }
-                }
-            } else{
-                console.log("not fascinating");
-                break
+    if(arr.length!==9) isFasc = false;
+    else{
+        for(let i=1; i<=9; i++) {
+            if(!arr.includes(i+"")) {
+                isFasc = false;
+                break;
             }
         }
-
-        if(isFasc) console.log("fascinating");
     }
+    console.log(isFasc ? "fascinating" : "not fascinating");
 }
 
 isFascinating(192)
@@ -193,8 +184,7 @@ const balanceArrayVal = (n, arr) => {
             n1 += arr[i];
             n2 += arr[arr.length -1 -i];
         }
-        if(n1-n2 >= 0) console.log("balancing val: ", n1-n2)
-        else console.log("balancing val: ", n2-n1)
+        console.log("balancing val: ", Math.abs(n1-n2))
     }
 }
 

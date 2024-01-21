@@ -9,56 +9,53 @@ const reverseNum = (n) => {
   console.log({ reverseNum });
 };
 
+function reverse(n){
+  let res = 0;
+  let isNeg = false;
+
+  if(n<0){
+    n=-n;
+    isNeg = true;
+  }
+
+  while(n!=0){
+    res = (res*10) + (n%10);
+    n=Math.floor(n/10);
+  }
+
+  return isNeg ? -res : res;
+}
+
 reverseNum(153);
 // reverseNum(120);
 // reverseNum(-129);
 
 // Q2
-//getting issue for large input like 73 
-
 class Solution {
-  nthRowOfPascalTriangle(N){
+  nthRowOfPascalTriangle(n){
       //code here
-      
-      const pascalArr = [[1]]
-      
-      for(let i=1; i<N; i++){
-          let arr = [];
-          let k1=0;
-          let max = Math.floor(i/2);
-          for(let j=0; j<=max; j++){
-              let k2 = pascalArr[i-1][j] ? pascalArr[i-1][j] : pascalArr[i-1][j-1];
-              arr[j] = (k1 + k2);
-              k1 = pascalArr[i-1][j];
+      let res = [1];
+
+      for(let i=1; i<n; i++){
+          let temp = new Array(i+1).fill(1);
+          for(let j=1; j<i; j++){
+              temp[j] = (res[j] + res[j-1]) % (7+Math.pow(10,9));
           }
-          pascalArr.push(arr)
+          res = temp;
       }
-      
-      let result = pascalArr[N-1];
-      
-      if(N%2 === 0 ) result = [...result, ...result.reverse((a,b) => a-b)];
-      else {
-          let pop = result.pop();
-          result = [...result, pop, ...result.reverse((a,b) => a-b)];
-      }
-      
-      return result;
+      return res;
   }
 }
 
 // Q3
 
-const maximumWealth = function (accounts) {
-  var richestWealth = 0;
-  for (let i = 0; i < accounts.length; i++) {
-    let wealth = 0;
-    for (let j = 0; j < accounts[i].length; j++) {
-      wealth += accounts[i][j];
-    }
-    if (wealth > richestWealth) richestWealth = wealth;
+var maximumWealth = function(accounts) {
+  let richestWealth = 0;
+  for(let i=0; i<accounts.length; i++){
+      const  wealth = accounts[i].reduce((p,c) => p+c, 0)
+      if(wealth > richestWealth) richestWealth = wealth;
   }
-  console.log({richestWealth})
-  // return richestWealth;
+  return richestWealth;
 };
 
 maximumWealth([[1,2,3],[3,2,1]])
@@ -155,15 +152,17 @@ threeConsecutiveOdds([1,2,34,3,4,5,7,23,12])
 //Q8
 
 var moveZeroes = function(nums) {
+  let j=0, n=nums.length;
+  while(nums[j]!==0 && j<n) j++;
 
-  for(let i=1, j=0; i<nums.length; i++){
-      if(nums[j]===0 && nums[i]!==0){
+  for(let i=j+1; i<n; i++){
+      if(nums[i]!==0){
           nums[j] = nums[i];
           nums[i] = 0;
           j++
-      } else if(nums[j]!==0) j++
+      }
   }
-  console.log({nums})
+
   return nums;
 };
 
