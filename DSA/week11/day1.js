@@ -11,10 +11,7 @@ class Solution {
     countLeaves(root){
         //code here
         if(root==null) return 0;
-        if(!root.left && !root.right) return 1;
-        
-        let obj = new Solution;
-        
-        return obj.countLeaves(root.left) + obj.countLeaves(root.right)
+        if(!root.left && !root.right) return 1;        
+        return this.countLeaves(root.left) + this.countLeaves(root.right)
     }
 }

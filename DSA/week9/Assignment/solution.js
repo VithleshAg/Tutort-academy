@@ -47,6 +47,26 @@ linkdelete(head,M,N){
     
   }
 
+// Q3
+
+var removeZeroSumSublists = function(head) {
+    const temp = {next: head, val: 0};
+    let start = head, sum = 0;
+
+    while(start){
+        sum+=start.val;
+        if(sum==0) {
+            temp.next = start.next;
+            // start.next=null;
+        }
+        start = start.next;
+    }
+
+    if(temp.next && temp.next.next) temp.next.next = removeZeroSumSublists(temp.next.next);
+
+    return temp.next
+};
+
 // Q4
 var middleNode = function(head) {
     let slow = head;
@@ -74,11 +94,13 @@ var deleteNode = function(node) {
 // Q6
 var removeElements = function(head, val) {
     let temp = {next: head, val: null};
-    let first = temp;
+    let prev = temp, curr = head;
 
-    while(first.next!==null){
-        if(first.next.val == val) first.next = first.next.next;
-        else first = first.next;
+    while(curr){
+        if(curr.val == val) prev.next = curr.next;
+        else prev = curr;
+        curr = curr.next;
+        
     }
 
     return temp.next;

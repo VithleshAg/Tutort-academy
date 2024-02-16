@@ -1,3 +1,41 @@
+// Q1
+
+var reorderList = function(head) {
+    if(!head || !head.next|| !head.next.next) return head;
+
+    let slow = head;
+    let fast = head;
+
+    while(fast.next && fast.next.next){
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    let curr = slow.next;
+    let prev = null;
+    slow.next = null;
+
+    while(curr){
+        let currNext = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = currNext;
+    }
+
+    let front = head;
+    let back = prev;
+
+    while(back){
+        let frontNext = front.next;
+        let backNext = back.next;
+        front.next=back;
+        back.next = frontNext;
+
+        front = frontNext;
+        back = backNext;
+    }
+};
+
 // Q2
 
 var mergeTwoLists = function(list1, list2) {
@@ -220,6 +258,39 @@ var oddEvenList = function(head) {
 
     return head;
 };
+
+// Q11
+
+class Solution {
+    
+    addPolynomial(poly1, poly2)
+    {
+        //your code here
+        
+        const curr = new Node(0, 0);
+    	let temp = curr;
+    	while(poly1 || poly2){
+    	    console.log(poly1?.coeff, poly2?.coeff, poly1?.pow, poly2?.pow)
+    		if(!poly2 || poly1?.pow > poly2?.pow)	{
+    			temp.next = new Node(poly1.coeff, poly1.pow);
+    			poly1 = poly1.next;
+    		} else if(!poly1 || poly2?.pow > poly1?.pow)	{
+    			temp.next = new Node(poly2.coeff, poly2.pow);
+    			poly2 = poly2.next;
+    		} else {
+    			temp.next = new Node(poly1.coeff + poly2.coeff, poly2.pow);
+    			poly1 = poly1.next;
+    			poly2 = poly2.next;
+    		}
+    		
+    		temp = temp.next;
+    	}
+    	
+    	return curr.next;
+
+    }
+}
+
 
 //Q13
 
